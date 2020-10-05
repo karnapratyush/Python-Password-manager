@@ -33,28 +33,35 @@ def getvals_register():
         
     try:
         username_dict[username]
-        Label(screen1,text="**Username exist. Either login or use other username", padx=15,pady=2,bg="plum2", font=("arial", 10, "italic"),fg="red").grid(row=2,column=1)
+        Label(screen1,text="**Username exist. Either login or use other username", padx=15,pady=2,bg="plum2", font=("arial", 8, "italic"),fg="red").grid(row=2,column=1)
     except:
 
 
         if len(username)==0 :
-            a=Label(screen1,text="**Username cannot be empty!", padx=15,pady=2,bg="plum2", font=("arial", 10, "italic"),fg="red")
+            a=Label(screen1,text="**Username cannot be empty!", padx=15,pady=2,bg="plum2", font=("arial", 8, "italic"),fg="red")
             a.grid(row=2,column=1)
             b=Label(screen1,text="",padx=0,pady=2,bg="plum2")
             b.grid(row=4,column=1)
             c=Label(screen1,text="",padx=0,pady=2,bg="plum2")
             c.grid(row=6,column=1)
         elif len(password)==0:
-            b=Label(screen1,text="**Password  cannot be empty!", padx=15,pady=2,bg="plum2", font=("arial", 10, "italic"),fg="red").grid(row=4,column=1)
+            b=Label(screen1,text="**Password  cannot be empty!", padx=15,pady=2,bg="plum2", font=("arial", 8, "italic"),fg="red").grid(row=4,column=1)
             a=Label(screen1,text="",padx=0,pady=2,bg="plum2").grid(row=2,column=1)
-            c=abel(screen1,text="",padx=0,pady=2,bg="plum2").grid(row=6,column=1)
+            c=Label(screen1,text="",padx=0,pady=2,bg="plum2").grid(row=6,column=1)
         elif len(confirm_password)==0:
-            c=Label(screen1,text="**Confirm Password  cannot be empty", padx=15,pady=2,bg="plum2", font=("arial", 10, "italic"),fg="red").grid(row=6,column=1)
+            c=Label(screen1,text="**Confirm Password  cannot be empty", padx=15,pady=2,bg="plum2", font=("arial", 8, "italic"),fg="red").grid(row=6,column=1)
             a=Label(screen1,text="",padx=0,pady=2,bg="plum2").grid(row=2,column=1)
             b=Label(screen1,text="",padx=0,pady=2,bg="plum2").grid(row=4,column=1)
+        elif 48<= ord(username[0])<=57:
+            a=Label(screen1,text="**Username cannot start with a number!", padx=15,pady=2,bg="plum2", font=("arial", 8, "italic"),fg="red")
+            a.grid(row=2,column=1)
+            b=Label(screen1,text="",padx=0,pady=2,bg="plum2")
+            b.grid(row=4,column=1)
+            c=Label(screen1,text="",padx=0,pady=2,bg="plum2")
+            c.grid(row=6,column=1)
 
         elif password==confirm_password:
-            Label(screen1,text="*Account created.\n Please login. \nClosing register window  ", padx=0,bg="plum2", font=("arial", 10, "italic"),fg="green").grid(row=9,column=0)
+            Label(screen1,text="*Account created.\n Please login. \nClosing register window  ", padx=0,bg="plum2", font=("arial", 8, "italic"),fg="green").grid(row=9,column=0)
             f=open("usernames.txt","a")
             encrypt=name_encrypt(username)
 
@@ -67,8 +74,8 @@ def getvals_register():
             a=Label(screen1,text="",padx=0,pady=2,bg="plum2").grid(row=2,column=1)
             b=Label(screen1,text="",padx=0,pady=2,bg="plum2").grid(row=4,column=1)
             c=Label(screen1,text="",padx=0,pady=2,bg="plum2").grid(row=6,column=1)
-            regis_btn["state"]="enabled"
-            login_btn["state"]="enabled"
+            regis_btn["state"]="active"
+            login_btn["state"]="active"
             screen1.after(5000, screen1.destroy) 
             username_dict[username]=1
 
@@ -78,7 +85,7 @@ def getvals_register():
             b=Label(screen1,text="",padx=0,pady=2,bg="plum2").grid(row=4,column=1)
             c=Label(screen1,text="",padx=0,pady=2,bg="plum2").grid(row=6,column=1)
             
-            Label(screen1,text="Password donot match. Please retry", padx=0,bg="plum2", font=("arial", 10, "italic"),fg="red").grid(row=9,column=0)
+            Label(screen1,text="Password donot match. Please retry", padx=0,bg="plum2", font=("arial", 8, "italic"),fg="red").grid(row=9,column=0)
 
 
     userentry.delete(0,END)
