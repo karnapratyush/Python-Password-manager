@@ -52,16 +52,28 @@ def getvals_register():
             c=Label(screen1,text="**Confirm Password  cannot be empty", padx=15,pady=2,bg="plum2", font=("arial", 8, "italic"),fg="red").grid(row=6,column=1)
             a=Label(screen1,text="",padx=0,pady=2,bg="plum2").grid(row=2,column=1)
             b=Label(screen1,text="",padx=0,pady=2,bg="plum2").grid(row=4,column=1)
-        elif 48<= ord(username[0])<=57:
-            a=Label(screen1,text="**Username cannot start with a number!", padx=15,pady=2,bg="plum2", font=("arial", 8, "italic"),fg="red")
+        elif (ord(username[0])<65 or ord(username[0])>122) or (90<ord(username[0])<97):
+            a=Label(screen1,text="**Username must start with a  alphabhet", padx=15,pady=2,bg="plum2", font=("arial", 8, "italic"),fg="red")
             a.grid(row=2,column=1)
             b=Label(screen1,text="",padx=0,pady=2,bg="plum2")
             b.grid(row=4,column=1)
             c=Label(screen1,text="",padx=0,pady=2,bg="plum2")
             c.grid(row=6,column=1)
+        elif len(username)<5:
+            a=Label(screen1,text="**Username should be atleast 5 characters long!", padx=15,pady=2,bg="plum2", font=("arial", 8, "italic"),fg="red")
+            a.grid(row=2,column=1)
+            b=Label(screen1,text="",padx=0,pady=2,bg="plum2")
+            b.grid(row=4,column=1)
+            c=Label(screen1,text="",padx=0,pady=2,bg="plum2")
+        elif len(password)<5:
+            a=Label(screen1,text="*Password should be atleast 5 characters long!", padx=15,pady=2,bg="plum2", font=("arial", 8, "italic"),fg="red")
+            a.grid(row=4,column=1)
+            b=Label(screen1,text="",padx=0,pady=2,bg="plum2")
+            b.grid(row=4,column=1)
+            c=Label(screen1,text="",padx=0,pady=2,bg="plum2")
 
         elif password==confirm_password:
-            Label(screen1,text="*Account created.\n Please login. \nClosing register window  ", padx=0,bg="plum2", font=("arial", 8, "italic"),fg="green").grid(row=9,column=0)
+            Label(screen1,text="*Account created.\n Please login. \nClosing register window  ", padx=0,bg="plum2", font=("arial", 10, "italic","bold"),fg="green").grid(row=9,column=0)
             f=open("usernames.txt","a")
             encrypt=name_encrypt(username)
 
@@ -76,7 +88,7 @@ def getvals_register():
             c=Label(screen1,text="",padx=0,pady=2,bg="plum2").grid(row=6,column=1)
             regis_btn["state"]="active"
             login_btn["state"]="active"
-            screen1.after(5000, screen1.destroy) 
+            screen1.after(2000, screen1.destroy) 
             username_dict[username]=1
 
 
@@ -117,7 +129,7 @@ def register():
 
     screen1=Toplevel(screen,bg="plum2")
     screen1.title("ZA@P Register")
-    screen1.geometry("400x300")
+    screen1.geometry("500x300")
     Label(screen1,text="",padx=15,pady=2,bg="plum2").grid(row=0,column=0)
     Label(screen1,text="USERNAME*",padx=15,pady=2,bg="plum2", font=("Calibri", 10, "bold")).grid(row=1,column=0)
     a=Label(screen1,text="",padx=15,pady=2,bg="plum2")
@@ -163,7 +175,7 @@ def getvals_login():
         if "button" in str(i):
             break
         j+=1
-    for i in range(j+1,len(screen2.winfo_children())):
+    for i in range(j+2,len(screen2.winfo_children())):
         screen2.winfo_children()[i].grid_forget()
     global root
     # print(uservalue_login.get())
@@ -172,10 +184,10 @@ def getvals_login():
     login_password=passvalue_login.get()
     
     if len(login_username)==0:
-        Label(screen2,text="username cannot be empty",font=("arial", 10, "italic"),fg="red",bg="wheat1").grid(row=4)
+        Label(screen2,text="username cannot be empty",font=("arial", 10, "italic"),fg="red",bg="wheat1").grid(row=5)
         return None
     elif len(login_password)==0:
-        Label(screen2,text="Password field cannot be empty",font=("arial", 10, "italic"),fg="red",bg="wheat1").grid(row=4)
+        Label(screen2,text="Password field cannot be empty",font=("arial", 10, "italic"),fg="red",bg="wheat1").grid(row=5)
         return None
     # print("q")
 
@@ -197,7 +209,7 @@ def getvals_login():
         username_dict[login_username]=paswrd
 
         if given_password==paswrd[:-3]:
-            Label(screen2,text=f"Login Successful. Opening new tab",padx=15,pady=15,bg="wheat1",font=("arial", 10,"bold" ,"italic"),fg="Green").grid(row=4)
+            Label(screen2,text=f"Login Successful. Opening new tab",padx=15,pady=15,bg="wheat1",font=("arial", 10,"bold" ,"italic"),fg="Green").grid(row=5)
             sleep_time=5
             
 
@@ -209,7 +221,7 @@ def getvals_login():
         else:
             attempt+=1
             print("x")
-            Label(screen2,text=f"Invalid  username/password. {3-attempt} remaining",padx=15,pady=15,bg="wheat1",font=("arial", 10, "italic"),fg="red").grid(row=4)
+            Label(screen2,text=f"Invalid  username/password. {3-attempt} remaining",padx=15,pady=15,bg="wheat1",font=("arial", 10, "italic"),fg="red").grid(row=5)
             userentry_login.delete(0,END)
             passentry_login.delete(0,END)
         
@@ -225,7 +237,7 @@ def getvals_login():
     except:
         attempt+=1
 
-        Label(screen2,text=f"Invalid except  username/password. {3-attempt} remaining",padx=15,pady=15,bg="wheat1",font=("arial", 10, "italic"),fg="red").grid(row=4)
+        Label(screen2,text=f"Invalid except  username/password. {3-attempt} remaining",padx=15,pady=15,bg="wheat1",font=("arial", 10, "italic"),fg="red").grid(row=5)
         userentry_login.delete(0,END)
         passentry_login.delete(0,END)
 
@@ -254,11 +266,11 @@ def getvals_login():
 def login():
     global screen2
     screen2=Toplevel(screen,bg="wheat1")
-    screen2.title("Login")
+    screen2.title("ZA@P Login")
     screen2.geometry("500x300")
     regis_btn["state"]="disabled"
     login_btn["state"]="disabled"
-    Label(screen2,text="",padx=15,pady=15,bg="wheat1").grid(row=0,column=0)
+    Label(screen2,text="LOGIN",padx=15,pady=15,bg="wheat1",font=("arial", 12, "bold")).grid(row=0,column=1)
     Label(screen2,text="Enter the username**",padx=15,pady=15,bg="wheat1").grid(row=1,column=0)
     Label(screen2, text="Enter the password**",padx=15,pady=15,bg="wheat1").grid(row=2, column=0)
 
@@ -278,6 +290,8 @@ def login():
     passentry_login.grid(row=2, column=1)
     
     bt=Button(screen2,text="Submit",command=getvals_login).grid(row=3, column=1)
+    Label(screen2, text="** All fields are necessary",padx=15,pady=15,bg="wheat1").grid(row=4, column=0)
+
     
 
 
@@ -300,7 +314,7 @@ def main_screen():
     attempt=0
     screen=Tk()
     screen["bg"]="rosybrown1"
-    screen.geometry("600x400")
+    screen.geometry("600x300")
     screen.title("ZA@P ")
     Label(text="Welcome To ZA@P Password Manager",width="300",height="2", font=("Arial",20, "bold", "italic"),bg="rosybrown1").pack()
     Label(text=" To use our service either login or register",width="300",height="2", font=("Tempus Sans ITC",14),bg="rosybrown1",fg="blue").pack()
