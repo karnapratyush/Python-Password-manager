@@ -3,7 +3,7 @@ from encrypt import *
 import time
 from hashing import *
 from decrypt import *
-
+from tkinter import messagebox
 from aflogin import *
 
 
@@ -67,6 +67,8 @@ def getvals_register():
             a=Label(screen1,text="",padx=0,pady=2,bg="plum2").grid(row=2,column=1)
             b=Label(screen1,text="",padx=0,pady=2,bg="plum2").grid(row=4,column=1)
             c=Label(screen1,text="",padx=0,pady=2,bg="plum2").grid(row=6,column=1)
+            regis_btn["state"]="enabled"
+            login_btn["state"]="enabled"
             screen1.after(5000, screen1.destroy) 
             username_dict[username]=1
 
@@ -94,7 +96,7 @@ def getvals_register():
 
 
 
-
+sleep_time=5
 
 
 
@@ -103,12 +105,14 @@ def getvals_register():
 
 def register():
     global screen1
+    regis_btn["state"]="disabled"
+    login_btn["state"]="disabled"
 
     screen1=Toplevel(screen,bg="plum2")
-    screen1.title("Register")
-    screen1.geometry("500x300")
+    screen1.title("ZA@P Register")
+    screen1.geometry("400x300")
     Label(screen1,text="",padx=15,pady=2,bg="plum2").grid(row=0,column=0)
-    Label(screen1,text="USERNAME*",padx=15,pady=2,bg="plum2", font=("Times", 8, "bold")).grid(row=1,column=0)
+    Label(screen1,text="USERNAME*",padx=15,pady=2,bg="plum2", font=("Calibri", 10, "bold")).grid(row=1,column=0)
     a=Label(screen1,text="",padx=15,pady=2,bg="plum2")
     a.grid(row=2,column=0)
     Label(screen1, text="PASSWORD*",padx=15,pady=2,bg="plum2", font=("Times", 8, "bold")).grid(row=3, column=0)
@@ -134,8 +138,8 @@ def register():
     passentry.grid(row=3, column=1)
     confirmpassentry=Entry(screen1, textvariable=confirmpass)
     confirmpassentry.grid(row=5, column=1)
-    bt=Button(screen1,text="Submit",command=getvals_register).grid(row=8, column=1)
     
+    bt=Button(screen1,text="Submit",command=getvals_register,height=2,width=10,bg="plum2").grid(row=8, column=1)
 
 
 
@@ -145,6 +149,7 @@ def register():
 
 
 def getvals_login():
+    global sleep_time
     j=0
     for i in screen2.winfo_children():
         # print(i)
@@ -186,6 +191,7 @@ def getvals_login():
 
         if given_password==paswrd[:-3]:
             Label(screen2,text=f"Login Successful. Opening new tab",padx=15,pady=15,bg="wheat1",font=("arial", 10,"bold" ,"italic"),fg="Green").grid(row=4)
+            sleep_time=5
             
 
            
@@ -200,26 +206,33 @@ def getvals_login():
             userentry_login.delete(0,END)
             passentry_login.delete(0,END)
         
-        if attempt==3:
-            Label(screen2,text="Maximum attempt reached. Closing",padx=15,pady=15,bg="wheat1",font=("arial", 10, "italic"),fg="red").grid(row=4)
-            screen2
-            time.sleep(15)
+            if attempt==3:
+                messagebox.showinfo(" Login limit exceeded","Login Limit exceeded. Closing all windows!")
+                screen2.destroy()
+                time.sleep(2)
+                screen.destroy()
+                time.sleep(sleep_time)
+                    
 
 
     except:
         attempt+=1
-        print(attempt)
-        print("y")
 
         Label(screen2,text=f"Invalid except  username/password. {3-attempt} remaining",padx=15,pady=15,bg="wheat1",font=("arial", 10, "italic"),fg="red").grid(row=4)
         userentry_login.delete(0,END)
         passentry_login.delete(0,END)
 
         if attempt==3:
-            Label(screen2,text="Maximum attempt reached. Closing",padx=15,pady=15,bg="wheat1",font=("arial", 10, "italic"),fg="red").grid(row=4)
-            screen2.after(5000, screen2.destroy()) 
+            
+            # screen2.destroy()
+            # screen3=Toplevel(screen2)
+            # screen3.geometry("300x100")
+            # Label(screen3,text="Maximum attempt reached. Closing              ",padx=15,pady=15,bg="wheat1",font=("arial", 10, "italic"),fg="red").pack()
+            messagebox.showinfo(" Login limit exceeded","Login Limit exceeded. Closing all windows!")
+            screen2.destroy()
+            time.sleep(2)
             screen.destroy()
-            time.sleep(5)
+            time.sleep(sleep_time)
     
 
 
@@ -236,6 +249,8 @@ def login():
     screen2=Toplevel(screen,bg="wheat1")
     screen2.title("Login")
     screen2.geometry("500x300")
+    regis_btn["state"]="disabled"
+    login_btn["state"]="disabled"
     Label(screen2,text="",padx=15,pady=15,bg="wheat1").grid(row=0,column=0)
     Label(screen2,text="Enter the username**",padx=15,pady=15,bg="wheat1").grid(row=1,column=0)
     Label(screen2, text="Enter the password**",padx=15,pady=15,bg="wheat1").grid(row=2, column=0)
@@ -244,6 +259,8 @@ def login():
     global passvalue_login
     global userentry_login
     global passentry_login
+    global sleep_time
+    sleep_time+=10
     
     uservalue_login=StringVar()
     passvalue_login=StringVar()
@@ -276,10 +293,12 @@ def main_screen():
     attempt=0
     screen=Tk()
     screen["bg"]="rosybrown1"
-    screen.geometry("600x300")
-    screen.title("login/register")
-    Label(text="Login/Register",width="300",height="2", font=("calibri",13),bg="rosybrown1").pack()
+    screen.geometry("600x400")
+    screen.title("ZA@P ")
+    Label(text="Welcome To ZA@P Password Manager",width="300",height="2", font=("Arial",20, "bold", "italic"),bg="rosybrown1").pack()
+    Label(text=" To use our service either login or register",width="300",height="2", font=("Tempus Sans ITC",14),bg="rosybrown1",fg="blue").pack()
     Label(text="",bg="rosybrown1").pack()
+    
     global username_array
     global username_dict
     username_dict={}
@@ -287,9 +306,14 @@ def main_screen():
     username_array=(f.read()).split('\n')
     for i in username_array[:-1]:
         username_dict[decrypt_name(i)]=1
-    Button(text="login", height="2",width="30",command=login,bg="rosybrown1").pack()
+    global  login_btn
+    global regis_btn
+    login_btn=Button(text="login", height="2",width="30",command=login,bg="rosybrown1")
+    login_btn.pack()
     Label(text="",bg="rosybrown1").pack()
-    Button(text="register", height="2",width="30",command=register,bg="rosybrown1").pack()
+    regis_btn=Button(text="register", height="2",width="30",command=register,bg="rosybrown1")
+    regis_btn.pack()
+   
 
     screen.mainloop()
 main_screen()
