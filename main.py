@@ -194,7 +194,7 @@ def getvals_login():
     # login_password=dehash(login_password,x)
     
     global attempt
-    print(attempt)
+    # print(attempt)
    
     try:
         encrypt_login_user=name_encrypt(login_username)
@@ -204,8 +204,8 @@ def getvals_login():
 
         f.close()
         given_password=dehash(login_password,paswrd)
-        print(given_password)
-        print(paswrd)
+        # print(given_password)
+        # print(paswrd)
         username_dict[login_username]=paswrd
 
         if given_password==paswrd[:-3]:
