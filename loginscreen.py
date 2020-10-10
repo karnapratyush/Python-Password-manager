@@ -1,7 +1,10 @@
 from tkinter import *
 from initial_screen import *
 import time
-
+from encrypt import *
+from hashing import *
+from decrypt import *
+from aflogin import *
 
 sleep_time=5
 
@@ -115,7 +118,15 @@ def login():
     Label(screen2,text="LOGIN",padx=15,pady=15,bg="wheat1",font=("arial", 12, "bold")).grid(row=0,column=1)
     Label(screen2,text="Enter the username**",padx=15,pady=15,bg="wheat1").grid(row=1,column=0)
     Label(screen2, text="Enter the password**",padx=15,pady=15,bg="wheat1").grid(row=2, column=0)
-
+    global username_array
+    global username_dict
+    username_dict={}
+    f=open("usernames.txt","r")
+    username_array=(f.read()).split('\n')
+    for i in username_array[:-1]:
+        username_dict[decrypt_name(i)]=1
+    f.close()
+    
     global uservalue_login
     global passvalue_login
     global userentry_login

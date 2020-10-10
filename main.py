@@ -24,13 +24,14 @@ def main_screen():
     # Label(text=" To use our service either login or register",width="300",height="2", font=("Tempus Sans ITC",14),bg="rosybrown1",fg="blue").pack()
     # Label(text="",bg="rosybrown1").pack()
     
-    global username_array
-    global username_dict
-    username_dict={}
-    f=open("usernames.txt","r")
-    username_array=(f.read()).split('\n')
-    for i in username_array[:-1]:
-        username_dict[decrypt_name(i)]=1
+    # global username_array
+    # global username_dict
+    # username_dict={}
+    # f=open("usernames.txt","r")
+    # username_array=(f.read()).split('\n')
+    # for i in username_array[:-1]:
+    #     username_dict[decrypt_name(i)]=1
+    # f.close()
     regis_btn["command"]=register
     login_btn["command"]=login
    

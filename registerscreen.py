@@ -1,5 +1,9 @@
 from tkinter import *
 from initial_screen import *
+from encrypt import *
+import time
+from hashing import *
+from decrypt import *
 def getvals_register():
     
     username=uservalue.get()
@@ -138,6 +142,14 @@ def register():
     passentry.grid(row=3, column=1)
     confirmpassentry=Entry(screen1, textvariable=confirmpass)
     confirmpassentry.grid(row=5, column=1)
+    global username_array
+    global username_dict
+    username_dict={}
+    f=open("usernames.txt","r")
+    username_array=(f.read()).split('\n')
+    for i in username_array[:-1]:
+        username_dict[decrypt_name(i)]=1
+    f.close()
     
     bt=Button(screen1,text="Submit",command=getvals_register,height=2,width=10,bg="plum2").grid(row=8, column=1)
 

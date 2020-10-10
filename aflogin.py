@@ -3,15 +3,6 @@ from generatepassword import *
 from encrypt import *
 from decrypt import *
 
-# def check():
-
-# def dell():
-#     global screen10
-#     screen10=Toplevel(root)
-#     screen10.geometry("200x200")
-#     # print("hello")
-
-
     
 
 def yes():
