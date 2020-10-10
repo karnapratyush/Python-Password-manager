@@ -1,2 +1,4 @@
 learn.py
 practicetkinter.py
+*.py[co]
+*.txt
