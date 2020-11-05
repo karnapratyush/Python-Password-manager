@@ -1,5 +1,7 @@
 import random
 from encrypt import *
+
+#   creating a function to hash the login password
 def hash(word):
     x=random.randint(20,128)
     y=random.randint(20,128)
@@ -31,16 +33,7 @@ def hash(word):
     return hashed
 
 
-
-
-# f=open("w.txt","w")
-# f.write(hash("Pratyush")+"\n")
-# f.close()
-
-# word=hash("pratyush")
-# print(word)
-# print(word[:-5])
-
+#  chcking if given password can be converted 
 def dehash(word,converted):
     z=ord(converted[-1])
     y=ord(converted[-2])

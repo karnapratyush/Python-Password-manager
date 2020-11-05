@@ -23,8 +23,6 @@ def getvals_login():
     for i in range(j+2,len(screen2.winfo_children())):
         screen2.winfo_children()[i].grid_forget()
     global root
-    # print(uservalue_login.get())
-    # print(passvalue_login.get())
     login_username=uservalue_login.get()
     login_password=passvalue_login.get()
     
@@ -34,23 +32,16 @@ def getvals_login():
     elif len(login_password)==0:
         Label(screen2,text="Password field cannot be empty",font=("arial", 10, "italic"),fg="red",bg="wheat1").grid(row=5)
         return None
-    # print("q")
-
-    # login_password=dehash(login_password,x)
     
     global attempt
-    # print(attempt)
    
     try:
         encrypt_login_user=name_encrypt(login_username)
-        # print(encrypt_login_user)
         f=open(f"{encrypt_login_user}.txt","r")
         paswrd=f.readline()[:-1]
 
         f.close()
         given_password=dehash(login_password,paswrd)
-        # print(given_password)
-        # print(paswrd)
         username_dict[login_username]=paswrd
 
         if given_password==paswrd[:-3]:
@@ -87,22 +78,12 @@ def getvals_login():
         passentry_login.delete(0,END)
 
         if attempt==3:
-            
-            # screen2.destroy()
-            # screen3=Toplevel(screen2)
-            # screen3.geometry("300x100")
-            # Label(screen3,text="Maximum attempt reached. Closing              ",padx=15,pady=15,bg="wheat1",font=("arial", 10, "italic"),fg="red").pack()
             messagebox.showinfo(" Login limit exceeded","Login Limit exceeded. Closing all windows!")
             screen2.destroy()
             time.sleep(2)
             screen.destroy()
             time.sleep(sleep_time)
     
-
-
-
-
-
 
 
 

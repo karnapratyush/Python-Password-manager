@@ -9,9 +9,6 @@ def getvals_register():
     username=uservalue.get()
     password=passvalue.get()
     confirm_password=confirmpass.get()
-    # print(username)
-    # print(password)
-    # print(confirm_password)
     j=0
     for i in screen1.winfo_children():
         # print(i)
@@ -95,12 +92,6 @@ def getvals_register():
     confirmpassentry.delete(0,END)
     
     
-
-
-
-
-
-
 
 
 

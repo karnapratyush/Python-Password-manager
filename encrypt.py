@@ -1,8 +1,4 @@
 import random
-# from generatepassword import *
-
-
-# word=genpass(convo)
 
 def password_encrypted(word):
     shift=random.randint(10,15)
@@ -22,4 +18,4 @@ def name_encrypt(word):
         x+=97
         new+=chr(x)
     return new
-# print("the encrypted password: ",encrypt)
+

@@ -16,5 +16,3 @@ login_btn.pack()
 Label(text="",bg="rosybrown1").pack()
 regis_btn=Button(text="register", height="2",width="30",bg="rosybrown1")
 regis_btn.pack()
-# login_btn["command"]=quit
-# screen.mainloop()

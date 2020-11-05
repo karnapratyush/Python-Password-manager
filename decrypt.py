@@ -16,5 +16,3 @@ def decrypt_name(word):
         x+=97
         original+=chr(x)
     return original
-
-# print(decrypt("vxgz{ynf"))ls

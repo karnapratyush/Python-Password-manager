@@ -18,7 +18,6 @@ def yes():
     z.insert("1.0","password changed!")
     screen9.destroy()
     save_btnn["state"]="disabled"
-    # del_btn["state"]="active"
     gen_btn["state"]="active"
     saved_pass_btn["state"]="active"
 
@@ -29,14 +28,12 @@ def no():
     w.delete("1.0",END)
     z.delete("1.0",END)
     save_btnn["state"]="disabled"
-    # del_btn["state"]="active"
     gen_btn["state"]="active"
     saved_pass_btn["state"]="active"
 
 
 
 def showing():
-    # global enc_usrname
     enc_usrname=name_encrypt(usrname)
     length=len(dictionary)
     screen10=Toplevel(root)
@@ -56,8 +53,6 @@ def showing():
         zzz=Text(screen10, height=1,state=NORMAL,width=50,fg="red")
         zzz.insert("1.0", pas)
         zzz.grid(row=i,column=1)
-        # Label(screen10,text=wn, font="Arial 10", bg="red").grid(row=i,column=0)
-        # Label(screen10,text=pas, font="Arial 10", bg="red").grid(row=i,column=1)
     f.close()
     
 
@@ -69,7 +64,6 @@ def showing():
 
 
 def saved():
-    # global enc_usrname
     enc_usrname=name_encrypt(usrname)
     
     global name
@@ -82,7 +76,6 @@ def saved():
         
         print(dictionary[name.lower()])
         global screen15
-        # screen9.destroy()
         screen15=Toplevel(screen9)
         screen15.geometry("420x50")
         Label(screen15,text="website name exist.Do you want to change password?", font="Arial 10").grid(row=1)
@@ -90,9 +83,7 @@ def saved():
 
 
         Button(screen15,text="NO",bg="red",command=no,width=10).grid(row=2,column=1)
-    
-        
-        # z.insert("1.0","website name exist. Either change password or click on see saved password to see the password")
+
     except:
         dictionary[name.lower()]=gen_pas
         name=name_encrypt(name)
@@ -105,13 +96,9 @@ def saved():
         z.insert("1.0","saved")
         screen9.destroy()
         save_btnn["state"]="disabled"
-        # del_btn["state"]="active"
         gen_btn["state"]="active"
         saved_pass_btn["state"]="active"
-    # a.delete(0,END)
-    # b.delete(0,END)
-    # c.delete(0, END)
-    # w.delete("1.0",END)
+
     
     
     
@@ -120,7 +107,6 @@ def saved():
 def saving():
     global screen9
     save_btnn["state"]="disabled"
-    # del_btn["state"]="disabled"
     gen_btn["state"]="disabled"
     saved_pass_btn["state"]="disabled"
 
@@ -138,23 +124,11 @@ def saving():
 
 
 def get_info():
-    # j=0
-    # for i in root.winfo_children():
-    #     # print(i)
-    #     if "button2" in str(i):
-    #         break
-    #     j+=1
-    # for i in range(j+1,len(root.winfo_children())):
-    #     root.winfo_children()[i].delete("1.0",END)
+    global gen_pas
     
     w.delete("1.0",END)
     z.delete("1.0",END)
-    # print(length_of_password.get())
-    # print(special_characters.get())
-    # print(other_chars.get())
-    # print(other_special.get())
-    global gen_pas
-    if len(e.get())==0:
+    if len(writeselfpass.get())==0:
        
         
         if length_of_password.get()=='':
@@ -180,71 +154,89 @@ def get_info():
             save_btnn["state"]="disabled"
         else:
 
-            gen_pas=e.get()
+            gen_pas=writeselfpass.get()
 
             w.insert(1.0, gen_pas)
             w.pack()
             save_btnn["state"]="active"
    
-    a.delete(0,END)
-    b.delete(0,END)
-    c.delete(0, END)
+    specialchar_entry.delete(0,END)
+    pas_entry.delete(0,END)
+    otherchar_entry.delete(0, END)
 
 
+#  creating a  new screen after correct login with the username
 
 def after_login_screen(user):
+
     global usrname
     usrname=user
 
+    #   writing basic geometry details
     global root 
     root=Tk()
     root.geometry("900x600")
     root.title(f" ZA@P Welcomes you,  {user}")
     root["bg"]="cadetblue3"
      
+    #  dividing the screen in two frames
+
     f1=Frame(root,bg="cornsilk3",borderwidth=6,relief=SUNKEN)
     f1.pack(side=LEFT, fill=Y)
     l=Label(f1,text="", font="Arial 10", bg="cornsilk3")
     l.pack()
     l2=Label(f1,text="OPTIONS", font="Helvetica 16 bold",bg="cornsilk3")
     l2.pack()
+
+
+    #  using global variables for each kind of conditions
     global length_of_password
     global special_characters
     global other_chars
+    
+
+    # password length initializing
     length_of_password=StringVar()
     Label(f1,text="Enter the length of password", font="arial 10 ",bg="cornsilk3").pack()
-    global a
-    a=Entry(f1, textvariable=length_of_password)
-    a.pack()
-    global b
+
+    global pas_entry
+    pas_entry=Entry(f1, textvariable=length_of_password)
+    pas_entry.pack()
+    
+
+    #  special character conditions
     Label(f1,text="Enter the special characters required.\n Leave empty if not such specification", font="Arial 10",bg="cornsilk3").pack()
     
     special_characters=StringVar()
-    global c
-    c=Entry(f1, textvariable=special_characters)
-    c.pack()
+    global specialchar_entry
+    specialchar_entry=Entry(f1, textvariable=special_characters)
+    specialchar_entry.pack()
     Label(f1,text="Do you want another special characters other than specified?", font="Arial 10",bg="cornsilk3").pack()
+
+    #  other special characters requirement
     global other_special
     other_special=IntVar()
     Radiobutton(f1, text="Yes",font="Arial 10",bg="cornsilk3", variable=other_special, value=1 ).pack()
     Radiobutton(f1, text="No",font="Arial 10",bg="cornsilk3", variable=other_special, value=2 ).pack()
     Label(f1,text="If you want to add some more characters you can write below.\n Leave empty if not want to do so", font="Arial 10",bg="cornsilk3").pack()
     other_chars=StringVar()
-    b=Entry(f1, textvariable=other_chars)
-    b.pack()
-    global d
-    global e
-    e=StringVar()
+    global otherchar_entry
+    otherchar_entry=Entry(f1, textvariable=other_chars)
+    otherchar_entry.pack()
+
+    #  writing complete password 
+
+    global writeselfpass_entry
+    global writeselfpass
+    writeselfpass=StringVar()
     Label(f1,text="", font="Arial 10",bg="cornsilk3").pack()
     Label(f1,text="Or if you wish you can write whole password ", font=("Arial","10","bold"),bg="cornsilk3").pack()
 
-    d=Entry(f1, textvariable=e)
-    d.pack()
-
-    # Button(f1, text="Submit", font="Arial 10",bg="red",command=get_info).pack()
+    writeselfpass_entry=Entry(f1, textvariable=writeselfpass)
+    writeselfpass_entry.pack()
 
 
-
+    #  reading writing all password of a person
 
     enc_usrname=name_encrypt(usrname)
     f=open(f"{enc_usrname}.txt","r")
@@ -260,42 +252,29 @@ def after_login_screen(user):
         dictionary[wq.lower()]=rf
 
 
-
-    
-    
-    # f2=Frame(root, bg="grey",borderwidth=10,relief=SUNKEN,height=400, width=600)
-    # f2.pack(side=LEFT, fill=X)
-    
-    # l_2=Label(f2,text="project tkinter-Pycharm", font="Helvetica 16 bold")
-    # l_2.pack()
-    # l2=Label(f2,text="project tkinter-Pycharm", font="Helvetica 16 bold")
-    # l2.pack()
-    # # Label(f1,text="OPTIONS").pack()
+    #  another half of screen
     Label(root,text="project tkinter-Pycharm", font="Helvetica 16 bold", pady=10,bg="cadetblue3").pack()
     Label(root,text="", font="Helvetica 16 bold",bg="cadetblue3").pack()
-    global gen_btn
 
+    global gen_btn
     gen_btn=Button(root, text="      Generate      ", font=("Calibri", "14"),bg="tan2", pady=10,command=get_info)
     gen_btn.pack()
     gen_btn["state"]="active"
     Label(root,text="", font="Helvetica 16 bold",bg="cadetblue3").pack()
+
     global save_btnn
     save_btnn=Button(root, text="       Save       ", font=("Calibri", "14"),bg="olivedrab2",  pady=10, command=saving)
     save_btnn.pack()
     save_btnn["state"]="disabled"
     Label(root,text="", font="Helvetica 16 bold",bg="cadetblue3").pack()
-    global saved_pass_btn
 
+
+    global saved_pass_btn
     saved_pass_btn=Button(root, text="See Saved password", font=("Calibri", "14"),bg="lightpink", pady=10, command=showing)
     saved_pass_btn.pack()
     saved_pass_btn["state"]="active"
-    
     Label(root,text="", font="Helvetica 16 bold",bg="cadetblue3").pack()
-    # global del_btn
-    # del_btn=Button(root, text="Delete password", font=("Calibri", "14"),bg="lightpink", pady=10,command=dell)
-    # del_btn.pack()
-    # del_btn["state"]="active"
-    # Label(root,text="", font="Helvetica 16 bold",bg="cadetblue3").pack()
+
     global w
     w = Text(root, height=2,state=NORMAL,width=40)
     w.insert("1.0", "")
@@ -313,5 +292,3 @@ def after_login_screen(user):
     
 
     root.mainloop()
-
-# after_login_screen("pratyush")

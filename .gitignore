@@ -2,3 +2,4 @@ learn.py
 practicetkinter.py
 *.py[co]
 *.txt
+__pycache__/
